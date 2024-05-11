@@ -6,8 +6,11 @@
   "license": "MIT",
   "repository": "https://github.com/matter-labs/zksync-hardhat-template.git",
   "scripts": {
-    "deploy": "hardhat deploy-zksync --script deploy.ts",
-    "interact": "hardhat deploy-zksync --script interact.ts",
+    "setup": "npx hardhat resetContractAddressesJson",
+    "deployFactoryAccount": "hardhat deploy-zksync --script deployFactoryAccount.ts",
+    "createNewAccount": "npx hardhat createNewAccount",
+    "transferETH": "npx hardhat transferETH",
+    "setLimit": "npx hardhat setLimit",
     "compile": "hardhat compile",
     "clean": "hardhat clean",
     "test": "hardhat test --network hardhat"

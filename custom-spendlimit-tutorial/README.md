@@ -2,50 +2,74 @@
 
 This project was scaffolded with [zksync-cli](https://github.com/matter-labs/zksync-cli).
 
-## Project Layout
+## How to use
 
-- `/contracts`: Contains solidity smart contracts.
-- `/deploy`: Scripts for contract deployment and interaction.
-- `/test`: Test files.
-- `hardhat.config.ts`: Configuration settings.
+- setup
 
-## How to Use
+  ```bash
+  yarn setup --network zkSyncSepoliaTestnet
+  ```
 
-- `npm run compile`: Compiles contracts.
-- `npm run deploy`: Deploys using script `/deploy/deploy.ts`.
-- `npm run interact`: Interacts with the deployed contract using `/deploy/interact.ts`.
-- `npm run test`: Tests the contracts.
+- deploy AAFactory Contract & sample AA Acount Contract
 
-Note: Both `npm run deploy` and `npm run interact` are set in the `package.json`. You can also run your files directly, for example: `npx hardhat deploy-zksync --script deploy.ts`
+  ```bash
+  yarn deployFactoryAccount --network zkSyncSepoliaTestnet
+  ```
 
-### Environment Settings
+  ```bash
+  AA factory address: 0xEAD4366b5E2FA3dc3Ec60bd33Eb8A10f9A54D0D5
+  SC Account deployed on address 0x91572bc97620e029a3DBdce7eD7b97a150CdD136
+  Funding smart contract account with some ETH
+  Done!
+  ✨  Done in 15.59s.
+  ```
 
-To keep private keys safe, this project pulls in environment variables from `.env` files. Primarily, it fetches the wallet's private key.
+  [zkSync Explorer - 0xEAD4366b5E2FA3dc3Ec60bd33Eb8A10f9A54D0D5](https://explorer.zksync.io/address/0xEAD4366b5E2FA3dc3Ec60bd33Eb8A10f9A54D0D5)
 
-Rename `.env.example` to `.env` and fill in your private key:
+  [zkSync Explorer - 0x91572bc97620e029a3DBdce7eD7b97a150CdD136](https://explorer.zksync.io/address/0x91572bc97620e029a3DBdce7eD7b97a150CdD136)
 
-```
-WALLET_PRIVATE_KEY=your_private_key_here...
-```
+- createNewAccount
 
-### Network Support
+  ```bash
+  yarn createNewAccount --network zkSyncSepoliaTestnet
+  ```
 
-`hardhat.config.ts` comes with a list of networks to deploy and test contracts. Add more by adjusting the `networks` section in the `hardhat.config.ts`. To make a network the default, set the `defaultNetwork` to its name. You can also override the default using the `--network` option, like: `hardhat test --network dockerizedNode`.
+- setLimit
 
-### Local Tests
+  ```bash
+  yarn setLimit --network zkSyncSepoliaTestnet
+  ```
 
-Running `npm run test` by default runs the [zkSync In-memory Node](https://era.zksync.io/docs/tools/testing/era-test-node.html) provided by the [@matterlabs/hardhat-zksync-node](https://era.zksync.io/docs/tools/hardhat/hardhat-zksync-node.html) tool.
+  ```bash
+  yarn run v1.22.19
+  $ npx hardhat setLimit --network zkSyncSepoliaTestnet
+  Setting limit for account...
+  Account limit enabled?:  true
+  Account limit:  500000000000000
+  Available limit today:  500000000000000
+  Time to reset limit:  1715417806
+  ✨  Done in 7.45s.
+  ```
 
-Important: zkSync In-memory Node currently supports only the L2 node. If contracts also need L1, use another testing environment like Dockerized Node. Refer to [test documentation](https://era.zksync.io/docs/tools/testing/) for details.
+- transfer ETH
 
-## Useful Links
+  ```bash
+  yarn transferETH --network zkSyncSepoliaTestnet
+  ```
 
-- [Docs](https://era.zksync.io/docs/dev/)
-- [Official Site](https://zksync.io/)
-- [GitHub](https://github.com/matter-labs)
-- [Twitter](https://twitter.com/zksync)
-- [Discord](https://join.zksync.dev/)
-
-## License
-
-This project is under the [MIT](./LICENSE) license.
+  ```bash
+  yarn run v1.22.19
+  $ npx hardhat transferETH --network zkSyncSepoliaTestnet
+  Account ETH limit is:  500000000000000
+  Available today:  500000000000000
+  L1 timestamp:  undefined
+  Limit will reset on timestamp:  1715417806
+  Sending ETH transfer from smart contract account
+  ETH transfer tx hash is 0x3ef5cb3da998bfec4d3fafa2c17311e27a689504ab0181c74636cb5fb4bfaf8d
+  Transfer completed and limits updated!
+  Account limit:  500000000000000
+  Available today:  10000000000000
+  Limit will reset on timestamp: 1715512099
+  Limit timestamp was reset
+  ✨  Done in 7.25s.
+  ```
