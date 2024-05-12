@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import {IPaymaster, ExecutionResult, PAYMASTER_VALIDATION_SUCCESS_MAGIC} from "@matterlabs/zksync-contracts/l2/system-contracts/interfaces/IPaymaster.sol";
 import {IPaymasterFlow} from "@matterlabs/zksync-contracts/l2/system-contracts/interfaces/IPaymasterFlow.sol";
@@ -16,6 +16,8 @@ contract GeneralPaymaster is IPaymaster, Ownable {
     // Continue execution if called from the bootloader.
     _;
   }
+
+  constructor() Ownable(msg.sender) {}
 
   function validateAndPayForPaymasterTransaction(
     bytes32,
