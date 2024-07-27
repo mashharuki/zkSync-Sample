@@ -1,8 +1,8 @@
 import {Deployer} from "@matterlabs/hardhat-zksync";
 import dotenv from "dotenv";
-import {Contract, ethers} from "ethers";
+import {ethers} from "ethers";
 import * as hre from "hardhat";
-import {ContractFactory, Provider, Wallet} from "zksync-ethers";
+import {Provider, Wallet} from "zksync-ethers";
 
 import "@matterlabs/hardhat-zksync-node/dist/type-extensions";
 import "@matterlabs/hardhat-zksync-verify/dist/src/type-extensions";
@@ -162,24 +162,24 @@ export const deployUpgradableContract = async (
   const deployer = new Deployer(hre, wallet);
 
   const contract = await deployer.loadArtifact(contractArtifactName);
+
   /*
   // deploy Beacon contract
   const beacon = await hre.zkUpgrades.deployBeacon(deployer.zkWallet, contract);
   await beacon.waitForDeployment();
   console.log("Beacon deployed to:", await beacon.getAddress());
- 
+
   // deploy the proxy contract
   const box = await hre.zkUpgrades.deployBeaconProxy(
     deployer.zkWallet,
-    //await beacon.getAddress(),
-    "0x5c8E506154fF0fDBE414c606a325AB576Bd35fbf",
+    await beacon.getAddress(),
+    // "0x5c8E506154fF0fDBE414c606a325AB576Bd35fbf",
     contract,
     [],
     {
       kind: "beacon",
     }
   );
-   
 
   await box.waitForDeployment();
   console.log(contractArtifactName + " deployed to:", await box.getAddress());
@@ -192,23 +192,21 @@ export const deployUpgradableContract = async (
   );
   await hre.zkUpgrades.upgradeBeacon(
     deployer.zkWallet,
-    "0x5c8E506154fF0fDBE414c606a325AB576Bd35fbf",
+    // await beacon.getAddress(),
+    "0xEBC973D056f804e9b7f1aE5dAd2a5d10df0890Ba",
     boxV2Implementation
   );
 
+  /*
   const attachTo = new ContractFactory<any[], Contract>(
     boxV2Implementation.abi,
     boxV2Implementation.bytecode,
     deployer.zkWallet
   );
   const upgradedBox = attachTo.attach(
-    "0x7bb3e1B1aD1BFE1CeECe8De8Eafb2CEB7FBF930F" // beacon proxy address
+    "0x2DFfC2bCD8D1127C1710ec5f798Bb9764A3a2e88" // beacon proxy address
   );
-
-  console.info(
-    "Successfully upgraded beacon Box to BoxV2 on address: ",
-    "0x5c8E506154fF0fDBE414c606a325AB576Bd35fbf"
-  );
+  */
 };
 
 /**
