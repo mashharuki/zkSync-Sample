@@ -1,21 +1,6 @@
-import fs from "fs";
-import {HardhatUserConfig} from "hardhat/config";
-import path from "path";
+import { HardhatUserConfig } from "hardhat/config";
 
 import "@matterlabs/hardhat-zksync";
-
-const SKIP_LOAD = process.env.SKIP_LOAD === "true";
-if (!SKIP_LOAD) {
-  const taskPaths = [""];
-  taskPaths.forEach((folder) => {
-    const tasksPath = path.join(__dirname, "tasks", folder);
-    fs.readdirSync(tasksPath)
-      .filter((_path) => _path.includes(".ts"))
-      .forEach((task) => {
-        require(`${tasksPath}/${task}`);
-      });
-  });
-}
 
 const config: HardhatUserConfig = {
   defaultNetwork: "zkSyncSepoliaTestnet",
@@ -24,23 +9,19 @@ const config: HardhatUserConfig = {
       url: "https://sepolia.era.zksync.dev",
       ethNetwork: "sepolia",
       zksync: true,
-      verifyURL:
-        "https://explorer.sepolia.era.zksync.dev/contract_verification",
+      verifyURL: "https://explorer.sepolia.era.zksync.dev/contract_verification",
     },
     zkSyncMainnet: {
       url: "https://mainnet.era.zksync.io",
       ethNetwork: "mainnet",
       zksync: true,
-      verifyURL:
-        "https://zksync2-mainnet-explorer.zksync.io/contract_verification",
+      verifyURL: "https://zksync2-mainnet-explorer.zksync.io/contract_verification",
     },
-    zkSyncGoerliTestnet: {
-      // deprecated network
+    zkSyncGoerliTestnet: { // deprecated network
       url: "https://testnet.era.zksync.dev",
       ethNetwork: "goerli",
       zksync: true,
-      verifyURL:
-        "https://zksync2-testnet-explorer.zksync.dev/contract_verification",
+      verifyURL: "https://zksync2-testnet-explorer.zksync.dev/contract_verification",
     },
     dockerizedNode: {
       url: "http://localhost:3050",
@@ -64,7 +45,7 @@ const config: HardhatUserConfig = {
     },
   },
   solidity: {
-    version: "0.8.19",
+    version: "0.8.17",
   },
 };
 

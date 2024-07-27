@@ -1,8 +1,8 @@
 import {Deployer} from "@matterlabs/hardhat-zksync";
 import dotenv from "dotenv";
-import {ethers} from "ethers";
+import {Contract, ethers} from "ethers";
 import * as hre from "hardhat";
-import {Provider, Wallet} from "zksync-ethers";
+import {ContractFactory, Provider, Wallet} from "zksync-ethers";
 
 import "@matterlabs/hardhat-zksync-node/dist/type-extensions";
 import "@matterlabs/hardhat-zksync-verify/dist/src/type-extensions";
@@ -162,16 +162,53 @@ export const deployUpgradableContract = async (
   const deployer = new Deployer(hre, wallet);
 
   const contract = await deployer.loadArtifact(contractArtifactName);
+  /*
+  // deploy Beacon contract
+  const beacon = await hre.zkUpgrades.deployBeacon(deployer.zkWallet, contract);
+  await beacon.waitForDeployment();
+  console.log("Beacon deployed to:", await beacon.getAddress());
+ 
   // deploy the proxy contract
-  const box = await hre.zkUpgrades.deployProxy(
+  const box = await hre.zkUpgrades.deployBeaconProxy(
     deployer.zkWallet,
+    //await beacon.getAddress(),
+    "0x5c8E506154fF0fDBE414c606a325AB576Bd35fbf",
     contract,
     [],
-    {initializer: "initialize"}
+    {
+      kind: "beacon",
+    }
   );
+   
 
   await box.waitForDeployment();
   console.log(contractArtifactName + " deployed to:", await box.getAddress());
+  */
+
+  log(`\nStarting update process of "${contractArtifactName}"...`);
+
+  const boxV2Implementation = await deployer.loadArtifact(
+    "ZkQuestUpgradableBeaconV2"
+  );
+  await hre.zkUpgrades.upgradeBeacon(
+    deployer.zkWallet,
+    "0x5c8E506154fF0fDBE414c606a325AB576Bd35fbf",
+    boxV2Implementation
+  );
+
+  const attachTo = new ContractFactory<any[], Contract>(
+    boxV2Implementation.abi,
+    boxV2Implementation.bytecode,
+    deployer.zkWallet
+  );
+  const upgradedBox = attachTo.attach(
+    "0x7bb3e1B1aD1BFE1CeECe8De8Eafb2CEB7FBF930F" // beacon proxy address
+  );
+
+  console.info(
+    "Successfully upgraded beacon Box to BoxV2 on address: ",
+    "0x5c8E506154fF0fDBE414c606a325AB576Bd35fbf"
+  );
 };
 
 /**

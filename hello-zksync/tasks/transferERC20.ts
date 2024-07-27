@@ -8,7 +8,7 @@ import {task} from "hardhat/config";
 import {
   abi,
   entries,
-} from "../deployments-zk/zkSyncSepoliaTestnet/contracts/erc20/MyERC20Token.sol/MyERC20Token.json";
+} from "../deployments-zk/zkSyncSepoliaTestnet/contracts/erc20/MyERC20Token.sol/BestCoffeeInTokyo.json";
 dotenv.config();
 
 // load the values into .env file after deploying the FactoryAccount

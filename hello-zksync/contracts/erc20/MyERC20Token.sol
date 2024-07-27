@@ -1,14 +1,21 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+// Compatible with OpenZeppelin Contracts ^5.0.0
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
-contract ERC20_Token_Sample is ERC20 {
-  constructor() ERC20("Best coffee in Tokyo", "COFFEE") {
-    _mint(msg.sender, 100_000_000_000 * 10 ** 18);
+contract BestCoffeeInTokyo is ERC20, Ownable, ERC20Permit {
+  constructor()
+    ERC20("Best coffee in Tokyo", "COFFEE")
+    Ownable()
+    ERC20Permit("Best coffee in Tokyo")
+  {
+    _mint(msg.sender, 10000 * 10 ** decimals());
   }
 
-  function someTestFn() public view returns (uint8) {
-    return 10;
+  function mint(address to, uint256 amount) public onlyOwner {
+    _mint(to, amount);
   }
 }

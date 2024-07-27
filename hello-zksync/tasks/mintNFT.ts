@@ -7,7 +7,7 @@ import {task} from "hardhat/config";
 import {
   abi,
   entries,
-} from "../deployments-zk/zkSyncSepoliaTestnet/contracts/nft/MyNFT.sol/MyNFT.json";
+} from "../deployments-zk/zkSyncSepoliaTestnet/contracts/nft/ZKPassportNFT.sol/ZKPassportNFT.json";
 dotenv.config();
 
 // load the values into .env file after deploying the FactoryAccount
