@@ -1,7 +1,7 @@
-import {Provider, Wallet} from "zksync-ethers";
+import {Deployer} from "@matterlabs/hardhat-zksync-deploy";
 import * as ethers from "ethers";
 import {HardhatRuntimeEnvironment} from "hardhat/types";
-import {Deployer} from "@matterlabs/hardhat-zksync-deploy";
+import {Provider, Wallet} from "zksync-ethers";
 import {writeContractAddress} from "../helper/contractsJsonHelper";
 
 // load env file
@@ -40,7 +40,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   await (
     await deployer.zkWallet.sendTransaction({
       to: paymasterAddress,
-      value: ethers.parseEther("0.005"),
+      value: ethers.parseEther("0.02"),
     })
   ).wait();
 

@@ -49,27 +49,37 @@ task("useGaslessPaymasterMintERC20", "use paymaster").setAction(
     });
 
     // Estimate gas fee for mint transaction
-    const gasLimit = await greeter.mint.estimateGas(wallet.address, 1000, {
-      customData: {
-        gasPerPubdata: utils.DEFAULT_GAS_PER_PUBDATA_LIMIT,
-        paymasterParams: paymasterParams,
-      },
-    });
+    const gasLimit = await greeter.mint.estimateGas(
+      //wallet.address,
+      "0xf86cA24D0dCF2A18acEC3082fc19E5193e358835",
+      1000,
+      {
+        customData: {
+          gasPerPubdata: utils.DEFAULT_GAS_PER_PUBDATA_LIMIT,
+          paymasterParams: paymasterParams,
+        },
+      }
+    );
 
     const fee = gasPrice * gasLimit;
     console.log("Transaction fee estimation is :>> ", fee.toString());
 
     console.log(`Minting 5 tokens for the wallet via paymaster...`);
 
-    const setGreetingTx = await greeter.mint(wallet.address, 1000, {
-      maxPriorityFeePerGas: BigInt(0),
-      maxFeePerGas: gasPrice,
-      gasLimit: 6000000,
-      customData: {
-        gasPerPubdata: utils.DEFAULT_GAS_PER_PUBDATA_LIMIT,
-        paymasterParams,
-      },
-    });
+    const setGreetingTx = await greeter.mint(
+      // wallet.address,
+      "0xf86cA24D0dCF2A18acEC3082fc19E5193e358835",
+      1000,
+      {
+        maxPriorityFeePerGas: BigInt(0),
+        maxFeePerGas: gasPrice,
+        gasLimit: 6000000,
+        customData: {
+          gasPerPubdata: utils.DEFAULT_GAS_PER_PUBDATA_LIMIT,
+          paymasterParams,
+        },
+      }
+    );
 
     await setGreetingTx.wait();
 
