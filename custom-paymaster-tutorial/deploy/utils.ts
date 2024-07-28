@@ -1,8 +1,8 @@
-import {Provider, Wallet} from "zksync-ethers";
-import {HardhatRuntimeEnvironment} from "hardhat/types";
 import {Deployer} from "@matterlabs/hardhat-zksync";
 import dotenv from "dotenv";
 import {ethers} from "ethers";
+import {HardhatRuntimeEnvironment} from "hardhat/types";
+import {Provider, Wallet} from "zksync-ethers";
 
 import "@matterlabs/hardhat-zksync-node/dist/type-extensions";
 import "@matterlabs/hardhat-zksync-verify/dist/src/type-extensions";

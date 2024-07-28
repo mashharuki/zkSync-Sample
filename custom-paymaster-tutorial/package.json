@@ -14,6 +14,7 @@
     "deployGame": "yarn hardhat deploy-zksync --script deploy-game.ts",
     "usePaymaster": "hardhat usePaymaster",
     "useGaslessPaymaster": "hardhat useGaslessPaymaster",
+    "useGaslessPaymasterERC20": "hardhat useGaslessPaymasterERC20",
     "getGameInfo": "npx hardhat getGameInfo",
     "playGame": "npx hardhat playGame",
     "createGame": "npx hardhat createGame",

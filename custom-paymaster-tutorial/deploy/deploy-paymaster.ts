@@ -14,15 +14,22 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   const wallet = getWallet(hre);
 
   // deploy token contract & paymaster contract
-  const erc20 = await deployContract(hre, "MyERC20", [
-    "MyToken",
-    "MyToken",
-    18,
-  ]);
+  const erc20 = await deployContract(
+    hre,
+    "MyERC20",
+    ["MyToken", "MyToken", 18],
+    {
+      wallet: wallet,
+    }
+  );
   const erc20Address = await erc20.getAddress();
+  console.log("erc20Address: ", erc20Address);
+
+  // deploy paymaster contract
   const paymaster = await deployContract(hre, "MyPaymaster", [erc20Address]);
 
   const paymasterAddress = await paymaster.getAddress();
+  console.log("paymasterAddress: ", paymasterAddress);
 
   // Supplying paymaster with ETH
   console.log("Funding paymaster with ETH...");
@@ -39,9 +46,9 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
   // Supplying the ERC20 tokens to the wallet:
   // We will give the wallet 3 units of the token:
-  await (await erc20.mint(wallet.address, 3)).wait();
+  await (await erc20.mint(wallet.address, 1000)).wait();
 
-  console.log("Minted 3 tokens for the wallet");
+  console.log("Minted 1000 tokens for the wallet");
 
   // write Contract Address
   writeContractAddress({

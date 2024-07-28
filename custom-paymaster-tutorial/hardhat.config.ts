@@ -3,8 +3,8 @@ import {HardhatUserConfig} from "hardhat/config";
 import fs from "fs";
 import path from "path";
 
-import "@matterlabs/hardhat-zksync-node";
 import "@matterlabs/hardhat-zksync-deploy";
+import "@matterlabs/hardhat-zksync-node";
 import "@matterlabs/hardhat-zksync-solc";
 import "@matterlabs/hardhat-zksync-verify";
 
