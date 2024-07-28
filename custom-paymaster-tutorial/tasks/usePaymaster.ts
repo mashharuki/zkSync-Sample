@@ -1,8 +1,8 @@
-import {utils, Wallet} from "zksync-ethers";
 import * as ethers from "ethers";
 import {HardhatRuntimeEnvironment} from "hardhat/types";
+import {utils, Wallet} from "zksync-ethers";
 import {loadDeployedContractAddresses} from "../helper/contractsJsonHelper";
-import {getWallet, getProvider} from "./../deploy/utils";
+import {getProvider, getWallet} from "./../deploy/utils";
 
 // load env file
 import dotenv from "dotenv";
@@ -62,7 +62,7 @@ task("usePaymaster", "use paymaster").setAction(
 
     console.log(`Minting 5 tokens for the wallet via paymaster...`);
     await (
-      await erc20.mint(wallet.address, 5, {
+      await erc20.mint(wallet.address, 1000, {
         // paymaster info
         customData: {
           paymasterParams: paymasterParams,

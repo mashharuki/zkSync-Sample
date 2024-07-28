@@ -136,3 +136,4 @@ Further Reading:
 1. [Daily spending limit account](https://docs.zksync.io/build/tutorials/smart-contract-development/account-abstraction/daily-spend-limit.html)
 2. [QuickStart](https://docs.zksync.io/build/quick-start/hello-world.html)
 3. [zkSync Explorer](https://explorer.zksync.io/address/0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072)
+4. [zkQuest - EDCON2024](https://zkquest.zksync.io/)
